@@ -5,8 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\EventListener\CustomerDeliveriesQueryHandler;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Entity\User;
-use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 class DefaultController extends Controller
 {
@@ -16,13 +15,8 @@ class DefaultController extends Controller
     public function userDeliveries($user_id)
     {
         if ($user_id){
-            $user = $this->getDoctrine()->getRepository(User::class)->find($user_id);
-
-            if(!$user)
-                throw new NotFoundHttpException('user not found');
-
             $customerDeliveriesQueryHandler = new CustomerDeliveriesQueryHandler();
-            $deliveries = $customerDeliveriesQueryHandler->onCustomerDeliveriesQuery($user);
+            $deliveries = $customerDeliveriesQueryHandler->onCustomerDeliveriesQuery($user_id);
 
 
             $userDeliveries = [];
