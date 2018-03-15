@@ -29,7 +29,9 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    #customer_deliveries_query_handler:
-    #    class: AppBundle\EventListener\CustomerDeliveriesQueryHandler
-    #    tags:
-    #        - { name: kernel.event_listener }
+    app.customer_deliveries_query-handler:
+        class: AppBundle\EventListener\CustomerDeliveriesQueryHandler
+        factory: 'Doctrine\ORM\EntityManagerInterface:getRepository'
+        arguments:
+            entityManager: '@doctrine.orm.entity_manager'
+
